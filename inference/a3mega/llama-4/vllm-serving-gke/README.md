@@ -167,6 +167,8 @@ The recipe uses the helm chart to run the above steps.
     a. To serve the `Llama-4-Scout-17B-16E` and `Llama-4-Scout-17B-16E-Instruct` models, run
       ```bash
 cd ~/gpu-recipes/inference/a3ultra/single-host-serving/trtllm 
+
+
  helm upgrade --install -f values.yaml   --set-file workload_launcher=../../../src/launchers/trtllm-launcher.sh   --set-file serving_config=../../../src/frameworks/a3ultra/trtllm-configs/llama-3.1-405b.yaml   --set queue=${KUEUE_NAME}   --set volumes.gcsMounts[0].bucketName=${GCS_BUCKET}   --set job.gpus=8   --set job.image.repository=nvcr.io/nvidia/tensorrt-llm/release   --set job.image.tag=1.3.0rc3   --set gpuPlatformSettings.useHostPlugin=false   --set gpuPlatformSettings.ncclPluginImage=us-docker.pkg.dev/gce-ai-infra/gpudirect-tcpxo/nccl-plugin-gpudirecttcpx-dev:v1.0.8-1   --set gpuPlatformSettings.rxdmImage=us-docker.pkg.dev/gce-ai-infra/gpudirect-tcpxo/tcpgpudmarxd-dev:v1.0.14   --set gpuPlatformSettings.ncclBuildType=223   --set huggingface.secretName=hf-secret   --set huggingface.secretData.token=hf_api_token   $USER-serving-llama-3-1-405b-model   ./deployment
       ```
 
