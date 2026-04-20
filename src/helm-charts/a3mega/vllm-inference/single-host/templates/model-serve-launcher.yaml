@@ -282,27 +282,10 @@ spec:
           - -c
           - |
             # Launch the server
-
-            vllm serve {{ $root.Values.model.name }} \
-              --tokenizer {{ $root.Values.model.name }} \
-              --trust-remote-code \
-              --tensor-parallel-size {{ $root.Values.model.tp_size }} \
-              --pipeline-parallel-size {{ $root.Values.model.pp_size }}{{- if $root.Values.vllm.serverArgs }} \ {{- end }}
-            {{- if $root.Values.vllm.serverArgs }}
-              {{- $first := true }}
-              {{- range $key, $value := $root.Values.vllm.serverArgs }}
-                {{- if not $first }} \ {{- end }}
-                {{- $first = false }}
-              {{- if kindIs "bool" $value }}
-              --{{ $key }}{{ if not $value }}=False{{ end }}
-              {{- else }}
-              --{{ $key }} {{ $value }}
-              {{- end }}
-              {{- end }}
-            {{- end }}
-
+             # Launch the server
+            sleep infinity
           ports:
-            - containerPort: {{ $root.Values.vllm.service.ports.http }}
+            - containerPort: 8000
 
           volumeMounts:
           - name: nvidia-dir-host
